@@ -9,7 +9,7 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     // Default values
     def color_name = 'RED'
     def color_code = '#FF0000'
-    def summary = "<b>${build_status}</b>: <a href='${env.BUILD_URL}'>${env.BUILD_DISPLAY_NAME}</a>"
+    def summary = "<b>${build_status}</b>: <a href='${env.BUILD_URL}'>${env.BUILD_DISPLAY_NAME}</a></br>${message}"
 
     // Override default values based on build status
     if (build_status == 'UNSTABLE') {
