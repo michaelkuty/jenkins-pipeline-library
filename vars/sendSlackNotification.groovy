@@ -29,5 +29,5 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     }
 
     // Send a slack notification!
-    slackSend(channel: channel, color: color_code, message: StringEscapeUtil.escapeHtml(summary))
+    slackSend(channel: channel, color: color_code, message: StringEscapeUtils.escapeHtml(summary))
 }
