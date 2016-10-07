@@ -21,9 +21,11 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
         color_code = '#FF0000'
     }
 
-    // Make sure channel starts with a #
-    channel = (channel.startsWith('#')) ? channel : "#${channel}"
+    if ( channel != null ) {
+        // Make sure channel starts with a #
+        channel = (channel.startsWith('#')) ? channel : "#${channel}"
+    }
 
     // Send a slack notification!
-    slackNotify(channel: channel, color: color_code, message: summary)
+    slackSend(channel: channel, color: color_code, message: summary)
 }
