@@ -1,14 +1,15 @@
 #!/usr/bin/env groovy
 
+// https://github.com/jenkinsci/slack-plugin/blob/master/src/main/java/jenkins/plugins/slack/ActiveNotifier.java
 
-def call(String build_status = 'SUCCESSFUL', String message, String channel) {
+def call(String build_status = 'SUCCESSFUL', String channel = null) {
     build_status = build_status ?: 'SUCCESSFUL'
 
     // Default values
     def color_name = 'RED'
     def color_code = '#FF0000'
     def full_display_name = currentBuild.getFullDisplayName()
-    def summary = "*${build_status}*: <${env.BUILD_URL}|${full_display_name}>\n${message}"
+    def summary = "*${build_status}*:\n  <${env.BUILD_URL}|${full_display_name}>"
 
     // Override default values based on build status
     if (build_status == 'UNSTABLE') {
