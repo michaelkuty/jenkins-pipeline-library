@@ -1,0 +1,11 @@
+Send a slack notification
+
+This library accepts 3 arguments:
+
+* build_status: Which defaults to 'SUCCESSFUL' if not provided
+* message: The message to send to slack
+* channel: The slack channel to send the message to
+
+Example:
+
+sendSlackNotification(build_status: 'UNSTABLE', message: 'The build is unstable', channel: '#foo')
