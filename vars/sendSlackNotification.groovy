@@ -10,10 +10,10 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     def summary = "${subject} (${env.BUILD_URL})"
 
     // Override default values based on build status
-    if (buildStatus == 'UNSTABLE') {
+    if (build_status == 'UNSTABLE') {
         color_name = 'YELLOW'
         color_code = '#FFFF00'
-    } else if (buildStatus == 'SUCCESSFUL') {
+    } else if (build_status == 'SUCCESSFUL') {
         color_name = 'GREEN'
         color_code = '#00FF00'
     } else {
