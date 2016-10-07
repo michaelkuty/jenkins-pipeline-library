@@ -1,0 +1,9 @@
+<strong>wrappedNode(label: null) { ... }</strong>
+
+<p>
+Runs the given closure on a node matching <code>label</code> with the following behaviors:
+<ul>
+<li>Timestamps in build output</li>
+<li>Colored output</li>
+</ul>
+</p>
