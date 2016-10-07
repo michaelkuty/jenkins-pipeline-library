@@ -7,7 +7,8 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     // Default values
     def color_name = 'RED'
     def color_code = '#FF0000'
-    def summary = "*${build_status}*: <${env.BUILD_URL}|${env.JOB_NAME} ${env.BUILD_DISPLAY_NAME}>\n${message}"
+    def full_display_name = currentBuild.getFullDisplayName()
+    def summary = "*${build_status}*: <${env.BUILD_URL}|${full_display_name}>\n${message}"
 
     // Override default values based on build status
     if (build_status == 'UNSTABLE') {
