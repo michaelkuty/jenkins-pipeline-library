@@ -1,13 +1,15 @@
 #!/usr/bin/env groovy
 
+import org.apache.commons.lang.StringEscapeUtils
+
+
 def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     build_status = build_status ?: 'SUCCESSFUL'
 
     // Default values
     def color_name = 'RED'
     def color_code = '#FF0000'
-    def subject = "<b>${build_status}: ${env.BUILD_DISPLAY_NAME}</b>"
-    def summary = "${subject} (${env.BUILD_URL}) - *bar*"
+    def summary = "<b>${build_status}</b>: <a href='${env.BUILD_URL}'>${env.BUILD_DISPLAY_NAME}</a>"
 
     // Override default values based on build status
     if (build_status == 'UNSTABLE') {
@@ -27,5 +29,5 @@ def call(String build_status = 'SUCCESSFUL', String message, String channel) {
     }
 
     // Send a slack notification!
-    slackSend(channel: channel, color: color_code, message: summary)
+    slackSend(channel: channel, color: color_code, message: StringEscapeUtil.escapeHtml(summary))
 }
