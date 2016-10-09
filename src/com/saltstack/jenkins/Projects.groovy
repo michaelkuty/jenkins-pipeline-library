@@ -14,10 +14,10 @@ class Projects {
     static def get_projects() {
         return [
             new Raas(),
-            new Raas2(),
+            /*new Raas2(),
             new Ubu(),
             new Pack(),
-            new Pack2()
+            new Pack2()*/
         ]
     }
 
@@ -57,24 +57,6 @@ class Projects {
             return false
         }
         return match
-    }
-
-    def setCommitStatusPre(currentBuild, commit_status_context, out) {
-        def project = this.filterOutProject(currentBuild)
-        if ( project.set_commit_status ) {
-            project.setCommitStatusPre(currentBuild, commit_status_context, out)
-        } else {
-            out.println "Setting commit status for project ${project.display_name} is disabled. Skipping..."
-        }
-    }
-
-    def setCommitStatusPost(manager) {
-        def project = this.filterOutProject(manager.build)
-        if ( project.set_commit_status ) {
-            project.setCommitStatusPost(manager)
-        } else {
-            manager.listener.logger.println "Setting commit status for project ${project.display_name} is disabled. Skipping..."
-        }
     }
 
     def triggerPullRequestJobs(manager) {

@@ -29,7 +29,6 @@ class Project {
     String repo;
     Boolean setup_push_hooks = true;
     Boolean create_branches_webhook = false;
-    Boolean set_commit_status = true;
     Boolean trigger_new_prs = false;
 
     protected static String webhooks_user = 'salt-testing';
@@ -46,7 +45,6 @@ class Project {
         this.repo;
         this.setup_push_hooks = true;
         this.create_branches_webhook = false;
-        this.set_commit_status = true;
         this.trigger_new_prs = false;
         this._repo = null
         this._github = null
@@ -99,7 +97,6 @@ class Project {
             repo: this.repo,
             setup_push_hooks: this.setup_push_hooks,
             create_branches_webhook: this.create_branches_webhook,
-            set_commit_status: this.set_commit_status,
             trigger_new_prs: this.trigger_new_prs
         ]
         if ( include_branches ) {
@@ -131,102 +128,6 @@ class Project {
             }
         }
         return branches
-    }
-
-    def setCommitStatusPre(currentBuild, commit_status_context, out) {
-        if ( this.set_commit_status != true ) {
-            out.println "Not setting commit status for ${this.display_name} because it's currently disabled"
-            return
-        }
-        out.println "Setting Initial Commit Status to the current build"
-
-        def build_env_vars = currentBuild.getEnvironment()
-        def result = currentBuild.getResult()
-
-        def state = GHCommitState.ERROR;
-
-        if (result == null) { // Build is ongoing
-            state = GHCommitState.PENDING;
-            out.println 'GitHub commit status is PENDING'
-        } else if (result.isBetterOrEqualTo(Result.SUCCESS)) {
-            state = GHCommitState.SUCCESS;
-            out.println 'GitHub commit status is SUCCESS'
-        } else if (result.isBetterOrEqualTo(Result.UNSTABLE)) {
-            state = GHCommitState.FAILURE;
-            out.println 'GitHub commit status is FAILURE'
-        } else {
-            out.println 'GitHub commit status is ERROR'
-        }
-
-        def git_commit = build_env_vars.get('GIT_COMMIT', build_env_vars.get('ghprbActualCommit'))
-        if ( git_commit != null ) {
-            def status_result = this.getAuthenticatedRepository().createCommitStatus(
-                git_commit,
-                state,
-                currentBuild.getAbsoluteUrl(),
-                currentBuild.getFullDisplayName(),
-                commit_status_context
-            )
-            if ( ! status_result ) {
-                out.println "Failed to set commit status on GitHub for ${this.repo}@${git_commit}"
-            } else {
-                out.println "GitHub commit status successfuly set for for ${this.repo}@${git_commit}"
-            }
-        } else {
-            out.println 'No git commit SHA information could be found. Not setting final commit status information.'
-        }
-    }
-
-    def setCommitStatusPost(manager) {
-        if ( this.set_commit_status != true ) {
-            manager.listener.logger.println "Not setting commit status for ${this.display_name} because it's currently disabled"
-            return
-        }
-        manager.listener.logger.println "Setting Commit Status to the current build result"
-
-        def result = manager.build.getResult()
-
-        def commit_status_context = manager.envVars.get('COMMIT_STATUS_CONTEXT', 'ci')
-        manager.listener.logger.println "GitHub commit status context: ${commit_status_context}"
-
-        def state = GHCommitState.ERROR;
-
-        if (result == null) { // Build is ongoing
-            state = GHCommitState.PENDING;
-            manager.listener.logger.println 'GitHub commit status is PENDING'
-        } else if (result.isBetterOrEqualTo(Result.SUCCESS)) {
-            state = GHCommitState.SUCCESS;
-            manager.listener.logger.println 'GitHub commit status is SUCCESS'
-        } else if (result.isBetterOrEqualTo(Result.UNSTABLE)) {
-            state = GHCommitState.FAILURE;
-            manager.listener.logger.println 'GitHub commit status is FAILURE'
-        } else {
-            manager.listener.logger.println 'GitHub commit status is ERROR'
-        }
-
-        def msg = ''
-        def git_commit = manager.envVars.get('GIT_COMMIT', manager.envVars.get('ghprbActualCommit'))
-        if ( git_commit != null ) {
-            def status_result = this.getAuthenticatedRepository().createCommitStatus(
-                git_commit,
-                state,
-                manager.build.getAbsoluteUrl(),
-                manager.build.getFullDisplayName(),
-                commit_status_context
-            )
-            if ( ! status_result ) {
-                msg = "Failed to set commit status on GitHub for ${this.repo}@${git_commit}"
-                manager.addWarningBadge(msg)
-                manager.listener.logger.println msg
-            } else {
-                msg = "GitHub commit status successfuly set for for ${this.repo}@${git_commit}"
-                manager.addInfoBadge(msg)
-                manager.listener.logger.println(msg)
-            }
-        } else {
-            msg = 'No git commit SHA information could be found. Not setting final commit status information.'
-            manager.listener.logger.println(msg)
-        }
     }
 
     def getOpenPullRequests() {
