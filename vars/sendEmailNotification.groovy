@@ -37,7 +37,7 @@ def call() {
     <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${full_display_name}</a>&QUOT;</p>"""
 
     // Send an email notification!
-    emailext(attachLog: true,
+    emailext(attachLog: false,
              body: body,
              recipientProviders: [[$class: 'CulpritsRecipientProvider'],
                                   [$class: 'FirstFailingBuildSuspectsRecipientProvider'],
