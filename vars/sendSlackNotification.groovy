@@ -4,12 +4,13 @@
 import hudson.model.Result
 
 
+@NonCPS
 def call(String channel = null) {
     def color_name
     def color_code
     def build_status
 
-    def result = currentBuild.getResult()
+    def result = currentBuild.rawBuild.getResult()
 
     if (result == null) { // Build is ongoing
         build_status = 'In Progress'
