@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 
-def call(String build_status = 'SUCCESSFUL', String message) {
+def call(String build_status = 'SUCCESSFUL') {
     build_status = build_status ?: 'SUCCESSFUL'
 
     // Default values
