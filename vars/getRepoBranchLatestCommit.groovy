@@ -6,6 +6,7 @@ def call(String credentialsId, String repo, String branch) {
         def gh = GitHub.connectUsingOAuth(env.GITHUB_TOKEN)
         def repo = gh.getRepository(repo)
         def branch = repo.getBranch(branch)
-        return branch.getSHA1()
+        def sha1 = "${branch.getSHA1()}"
+        return sha1
     }
 }
