@@ -9,7 +9,6 @@ def call(String title, String commit_context, Boolean set_pending=true, Closure 
                       reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getGitHubProjectProperty()],
                       contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: commit_context],
                       errorHandlers: [[$class: 'ShallowAnyErrorHandler']],
-                    commitShaSource: [$class: 'ManuallyEnteredShaSource', sha: getGitCommit()],
                       statusResultSource: [
                         $class: 'ConditionalStatusResultSource',
                         results: [[$class: 'AnyBuildResult', message: "${title} - Build ${env.BUILD_NUMBER} Started", state: 'PENDING']]
@@ -23,7 +22,6 @@ def call(String title, String commit_context, Boolean set_pending=true, Closure 
                   reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getGitHubProjectProperty()],
                   contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: commit_context],
                   errorHandlers: [[$class: 'ShallowAnyErrorHandler']],
-                  commitShaSource: [$class: 'ManuallyEnteredShaSource', sha: getGitCommit()],
                   statusResultSource: [
                     $class: 'ConditionalStatusResultSource',
                     results: [
@@ -39,7 +37,6 @@ def call(String title, String commit_context, Boolean set_pending=true, Closure 
                   reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getGitHubProjectProperty()],
                   contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: commit_context],
                   errorHandlers: [[$class: 'ShallowAnyErrorHandler']],
-                  commitShaSource: [$class: 'ManuallyEnteredShaSource', sha: getGitCommit()],
                   statusResultSource: [
                     $class: 'ConditionalStatusResultSource',
                     results: [
@@ -51,10 +48,4 @@ def call(String title, String commit_context, Boolean set_pending=true, Closure 
             } catch(ee3) {}
         throw e
     }
-}
-
-
-@NonCPS
-def call(String title, String commit_context, Closure body=null) {
-    commitContextWrappedStage(title, commit_context, true, body)
 }
