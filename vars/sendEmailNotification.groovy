@@ -7,26 +7,28 @@ def call() {
     def color_code
     def build_status
 
-    def result = currentBuild.rawBuild.getResult()
+    if (currentBuild.result == null) { // Build is ongoing
+        currentBuild.result == 'PENDING'
+    }
 
-    if (result == null) { // Build is ongoing
+    if (currentBuild.result == 'PENDING') { // Build is ongoing
         build_status = 'In Progress'
         color_name = 'YELLOW'
         color_code = '#FFFF00'
-    } else if (result.isBetterOrEqualTo(Result.SUCCESS)) {
+    } else if (currentBuild.result == 'SUCCESS') {
         build_status = 'Success'
         color_name = 'GREEN'
         color_code = '#00FF00'
-    } else if (result.isBetterOrEqualTo(Result.FAILURE)) {
+    } else if (currentBuild.result == 'FAILURE') {
         build_status = 'Failed'
         color_name = 'RED'
         color_code = '#FF0000'
-    } else if (result.isBetterOrEqualTo(Result.UNSTABLE)) {
+    } else if (currentBuild.result == 'UNSTABLE') {
         build_status = 'Unstable'
         color_name = 'YELLOW'
         color_code = '#FFFF00'
-    } else {
-        build_status = 'Error'
+    } else if (currentBuild.result == 'ABORTED') {
+        build_status = 'Aborted'
         color_name = 'RED'
         color_code = '#FF0000'
     }
