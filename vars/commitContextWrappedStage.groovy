@@ -1,21 +1,19 @@
 #!/usr/bin/env groovy
 
 @NonCPS
-def call(String title, String commit_context, Boolean set_pending=true, Closure body=null) {
+def call(String title, String commit_context, Closure body=null) {
     try {
-        if ( set_pending ) {
-            try {
-                step([$class: 'GitHubCommitStatusSetter',
-                      reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getGitHubProjectProperty()],
-                      contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: commit_context],
-                      errorHandlers: [[$class: 'ShallowAnyErrorHandler']],
-                      statusResultSource: [
-                        $class: 'ConditionalStatusResultSource',
-                        results: [[$class: 'AnyBuildResult', message: "${title} - Build ${env.BUILD_NUMBER} Started", state: 'PENDING']]
-                      ]
-                ])
-            } catch(ee1) {}
-        }
+        try {
+            step([$class: 'GitHubCommitStatusSetter',
+                  reposSource: [$class: 'ManuallyEnteredRepositorySource', url: getGitHubProjectProperty()],
+                  contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: commit_context],
+                  errorHandlers: [[$class: 'ShallowAnyErrorHandler']],
+                  statusResultSource: [
+                    $class: 'ConditionalStatusResultSource',
+                    results: [[$class: 'AnyBuildResult', message: "${title} - Build ${env.BUILD_NUMBER} Started", state: 'PENDING']]
+                  ]
+            ])
+        } catch(ee1) {}
         if (body) { body() }
         try {
             step([$class: 'GitHubCommitStatusSetter',
