@@ -13,7 +13,7 @@ def call(String title, String commit_context, Closure body=null) {
                     results: [[$class: 'AnyBuildResult', message: "${title} - Build ${env.BUILD_NUMBER} Started", state: 'PENDING']]
                   ]
             ])
-        } catch(ee1) {}
+        } catch(e) {}
         if (body) { body() }
         try {
             step([$class: 'GitHubCommitStatusSetter',
@@ -27,7 +27,7 @@ def call(String title, String commit_context, Closure body=null) {
                     ]
                   ]
                 ])
-            } catch(ee2) {}
+            } catch(e) {}
     } catch(e) {
         currentBuild.result = 'FAILED'
         try {
@@ -43,7 +43,7 @@ def call(String title, String commit_context, Closure body=null) {
                     ]
                   ]
                 ])
-            } catch(ee3) {}
+            } catch(e) {}
         throw e
     }
 }
