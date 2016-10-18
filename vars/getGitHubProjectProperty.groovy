@@ -4,5 +4,5 @@ import com.coravy.hudson.plugins.github.GithubProjectProperty
 
 
 def call() {
-    return currentbuild.getProject().getProperty(GithubProjectProperty.class)
+    return currentBuild.getProject().getProperty(GithubProjectProperty.class)
 }
