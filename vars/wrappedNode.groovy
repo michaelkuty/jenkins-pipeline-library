@@ -5,7 +5,7 @@ def call(Map vars, Closure body=null) {
             wrap([$class: 'AnsiColorBuildWrapper']) {
                 currentBuild.result = 'PENDING'
                 timeout_vars = vars.get('timeout', null)
-                if ( timeout_vars )
+                if ( timeout_vars ) {
                     timeout(time: timeout_vars.get('time'), unit: timeout_vars.get('unit', 'MINUTES')) {
                         try {
                             if (body) { body() }
