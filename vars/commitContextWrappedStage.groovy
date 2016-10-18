@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 @NonCPS
-def call(String title, String commit_context, Boolean set_pending=true, Closure body=null) {
+def wrapped_call(String title, String commit_context, Boolean set_pending=true, Closure body=null) {
     try {
         if ( set_pending ) {
             try {
@@ -55,6 +55,11 @@ def call(String title, String commit_context, Boolean set_pending=true, Closure 
 
 
 @NonCPS
+def call(String title, String commit_context, Boolean set_pending=true, Closure body=null) {
+    wrapped_call(title, commit_context, set_pending, body)
+}
+
+@NonCPS
 def call(String title, String commit_context, Closure body=null) {
-    commitContextWrappedStage(title, commit_context, true, body)
+    wrapped_call(title, commit_context, true, body)
 }
