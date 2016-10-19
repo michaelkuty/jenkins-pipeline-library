@@ -19,6 +19,10 @@ def call(Map vars, Closure body=null) {
                             currentBuild.result = 'FAILURE'
                             echo "Setting currentBuild.result to ${currentBuild.result}"
                             throw e
+                        } finally {
+                            try {
+                                on_finished_build()
+                            } catch(eee) {}
                         }
                     }
                 } else {
@@ -34,6 +38,10 @@ def call(Map vars, Closure body=null) {
                         currentBuild.result = 'FAILURE'
                         echo "Setting currentBuild.result to ${currentBuild.result}"
                         throw e
+                    } finally {
+                        try {
+                            on_finished_build()
+                        } catch(eee) {}
                     }
                 }
             }
