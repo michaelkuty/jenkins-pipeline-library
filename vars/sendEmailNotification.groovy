@@ -8,10 +8,6 @@ def call() {
     def build_status
 
     if (currentBuild.result == null) { // Build is ongoing
-        currentBuild.result == 'PENDING'
-    }
-
-    if (currentBuild.result == 'PENDING') { // Build is ongoing
         build_status = 'In Progress'
         color_name = 'YELLOW'
         color_code = '#FFFF00'

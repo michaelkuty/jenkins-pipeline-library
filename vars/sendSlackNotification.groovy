@@ -10,11 +10,7 @@ def call(String channel = null) {
     def color_code
     def build_status
 
-    if (currentBuild.result == null) { // Build is ongoing
-        currentBuild.result == 'PENDING'
-    }
-
-    if (currentBuild.result == 'PENDING') { // Build is ongoing
+    if (currentBuild.result == null ) { // Build is ongoing
         build_status = 'In Progress'
         color_name = 'YELLOW'
         color_code = '#FFFF00'
