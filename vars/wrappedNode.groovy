@@ -20,9 +20,10 @@ def call(Map vars, Closure body=null) {
                             echo "Setting currentBuild.result to ${currentBuild.result}"
                             throw e
                         } finally {
-                            try {
+                            on_finished_build = vars.get('on_finished_build', null)
+                            if ( on_finished_build != null ) {
                                 on_finished_build()
-                            } catch(eee) {}
+                            }
                         }
                     }
                 } else {
@@ -39,9 +40,10 @@ def call(Map vars, Closure body=null) {
                         echo "Setting currentBuild.result to ${currentBuild.result}"
                         throw e
                     } finally {
-                        try {
+                        on_finished_build = vars.get('on_finished_build', null)
+                        if ( on_finished_build != null ) {
                             on_finished_build()
-                        } catch(eee) {}
+                        }
                     }
                 }
             }
