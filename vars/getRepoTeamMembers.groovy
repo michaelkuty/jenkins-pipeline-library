@@ -5,7 +5,7 @@ def call(String credentialsId, String repo, String team_name) {
     withGithubToken(credentialsId) {
         def gh = GitHub.connectUsingOAuth(env.GITHUB_TOKEN)
         def _repo = gh.getRepository(repo)
-        def teams = repo.getTeams()
+        def teams = _repo.getTeams()
         def usernames = []
         teams.each { team ->
             if ( team.getName() == team_name ) {
