@@ -1,5 +1,6 @@
+#!/usr/bin/env groovy
 
-
+@NonCPS
 def call() {
     repo = getAuthenticatedGitHubRepository()
     def branches = []

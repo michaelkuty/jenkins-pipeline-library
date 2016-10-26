@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 import org.kohsuke.github.GitHub
 
 @NonCPS

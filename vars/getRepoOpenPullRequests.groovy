@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 import hudson.Functions
 import org.kohsuke.github.GitHub
 import org.kohsuke.github.GHIssueState

@@ -3,7 +3,7 @@
 import com.cloudbees.jenkins.GitHubRepositoryName
 import com.coravy.hudson.plugins.github.GithubProjectProperty
 
-
+@NonCPS
 def call(String repo = null) {
     if ( repo == null ) {
         repo = currentbuild.getProject().getProperty(GithubProjectProperty.class)

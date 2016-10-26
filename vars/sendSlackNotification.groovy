@@ -3,7 +3,6 @@
 // https://github.com/jenkinsci/slack-plugin/blob/master/src/main/java/jenkins/plugins/slack/ActiveNotifier.java
 import hudson.model.Result
 
-
 @NonCPS
 def call(String channel = null) {
     def color_name

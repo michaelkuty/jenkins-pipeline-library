@@ -1,6 +1,8 @@
+#!/usr/bin/env groovy
 import com.saltstack.jenkins.Projects
 
 
+@NonCPS
 def call(Map options) {
     options = options ?: [:]
     def include_branches = options.get("include_branches", false)

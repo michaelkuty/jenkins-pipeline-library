@@ -1,3 +1,6 @@
+#!/usr/bin/env groovy
+
+@NonCPS
 def call(Closure body=null) {
     try {
         if (body) { body() }
