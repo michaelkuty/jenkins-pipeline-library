@@ -1,6 +1,5 @@
-#!/usr/bin/env groovy
 
-@NonCPS
+
 def call(String credentials_id, Closure body=null) {
     withCredentials([[variable: "GITHUB_TOKEN",
                      credentialsId: credentials_id,

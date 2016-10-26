@@ -1,6 +1,5 @@
-#!/usr/bin/env groovy
 
-@NonCPS
+
 def call(String title, String commit_context, Closure body=null) {
 
     if (currentBuild.result == null) { // Build is ongoing

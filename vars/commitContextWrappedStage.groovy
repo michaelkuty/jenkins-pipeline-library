@@ -1,6 +1,5 @@
-#!/usr/bin/env groovy
 
-@NonCPS
+
 def call(String title, String commit_context, Closure body=null) {
     try {
         setGitHubPullRequestStatus state: 'PENDING', context: commit_context, message: "${title} - Started"
