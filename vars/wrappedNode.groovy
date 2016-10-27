@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def call(Map vars, Closure body=null) {
     vars = vars ?: [:]
     node(vars.get("label", null)) {

@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 import com.saltstack.jenkins.projects.Ubu
 
 def call() {

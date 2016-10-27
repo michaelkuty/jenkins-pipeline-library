@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def call(Closure body=null) {
     try {
         if (body) { body() }

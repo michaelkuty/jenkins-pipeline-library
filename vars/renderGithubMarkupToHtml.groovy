@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.ContentType
 import static groovyx.net.http.Method.*

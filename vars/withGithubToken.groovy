@@ -1,4 +1,4 @@
-
+#!/usr/bin/env groovy
 
 def call(String credentials_id, Closure body=null) {
     withCredentials([[variable: "GITHUB_TOKEN",

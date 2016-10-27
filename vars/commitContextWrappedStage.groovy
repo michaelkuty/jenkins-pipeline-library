@@ -1,4 +1,4 @@
-
+#!/usr/bin/env groovy
 
 def call(String title, String commit_context, Closure body=null) {
     try {
