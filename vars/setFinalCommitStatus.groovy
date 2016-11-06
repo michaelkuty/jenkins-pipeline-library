@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(String title = null, String commit_context = null, Closure body=null) {
+def call() {
 
     echo "Setting the final commit status"
     if (currentBuild.result == null) { // Build is ongoing
@@ -19,8 +19,5 @@ def call(String title = null, String commit_context = null, Closure body=null) {
         state = 'ERROR'
         build_status = 'Aborted'
     }
-    def commit_status_message = "Build ${build_status}"
-    build_status = null
-    //setGitHubPullRequestStatus state: state, context: env.JOB_NAME, message: commit_status_message
-    setGitHubPullRequestStatus state: state, message: commit_status_message
+    setGitHubPullRequestStatus state: state, message: "Build ${build_status}"
 }
