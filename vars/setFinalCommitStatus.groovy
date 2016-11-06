@@ -2,6 +2,7 @@
 
 def call(String title, String commit_context, Closure body=null) {
 
+    echo "Setting the final commit status"
     if (currentBuild.result == null) { // Build is ongoing
         state = 'PENDING'
         build_status = 'In Progress'
