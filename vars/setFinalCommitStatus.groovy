@@ -19,5 +19,7 @@ def call(String title, String commit_context, Closure body=null) {
         state = 'ERROR'
         build_status = 'Aborted'
     }
-    setGitHubPullRequestStatus state: state, context: env.JOB_NAME, message: "Build ${build_status}"
+    def commit_status_message = "Build ${build_status}"
+    build_status = null
+    setGitHubPullRequestStatus state: state, context: env.JOB_NAME, message: commit_status_message
 }
